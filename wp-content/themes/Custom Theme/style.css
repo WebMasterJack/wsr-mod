@@ -1,0 +1,57 @@
+*{
+    font-family: monospace;
+}
+.container{
+    width: 1000px;
+    margin: 0 auto;
+}
+.post {
+    text-align: center;
+
+}
+.menu-custom-menu-container{
+width: 75%;
+margin: 0 auto;
+}
+#menu-custom-menu,#menu-custom-menu-1{
+    display: flex;
+    justify-content: space-between;
+    
+}
+#menu-custom-menu-1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#menu-custom-menu li,#menu-custom-menu-1 li{
+list-style: none;
+}
+h1{
+    font-size: 48px;
+   
+}
+h1,h2{
+    text-align: center;
+}
+p,a{
+    font-size: 18px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+text-decoration: underline;
+}
+.map{
+    background-image: url(http://modb/wp-content/uploads/2021/12/map.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin: 0 auto;
+}
