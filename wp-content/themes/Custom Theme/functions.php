@@ -35,22 +35,83 @@ add_action( 'slider', function(){
 	</div>
 	</div>';
 } );
+add_action('get_field_image',function(){ //большая картинка для постов
 
-add_action( 'eksponats', function($count){
-	query_posts("showposts=$count&category_name=eksponat");
+	$image = get_field('image');
+	if( !empty( $image ) ): ?>
+	
+		<img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>  " width="1080px" height="720px" />
+	<?php endif; 
+	});
+	add_action('get_field_image_large',function(){ //средняя картинка для постов
+
+		$image = get_field('second-image');
+		if( !empty( $image ) ): ?>
+		
+			<img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>  " width="300px" height="300px" />
+		<?php endif; 
+		});
+
+
+		add_action( 'eksponat', function(){ //index.php экспонаты
+	
+			
+			query_posts("&category_name=eksponat");
+		
+			 while( have_posts()  ) { the_post(); ?>
+			<div class="product">
+			<h1><?php the_title(); ?></h1>
+		
+		<p><?php echo get_field('name');?></p>
+		<?php do_action('get_field_image');?>
+			
+		<br>
+		<a href="<?php the_permalink(); ?>">Ссылка</a>
+			</div>
+
+			
+		
+		<?php
+			  
+		}
+		wp_reset_query();
+		});
+
+
+
+
+
+
+
+	
+add_action( 'eksponats', function($count){ //category-page.php экспонаты
+	
+	$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+	query_posts("posts_per_page=$count&category_name=eksponat&paged=$paged");
+
 	 while( have_posts()  ) { the_post(); ?>
     <h1><?php the_title(); ?></h1>
 
-    <p><?php the_content(); ?></p>
-	<a href="<?php the_permalink(); ?>">ссылка</a>
-	<?php echo paginate_links();?>
-	
+    <p><?php echo get_field('name');?></p>
+	<?php do_action('get_field_image');?>
+	<?php do_action('get_field_image_large');?>
+		
+	<br>
+	<a href="<?php the_permalink(); ?>">Ссылка</a>
+	<?php 
+	$big = 999999999; // need an unlikely integer
+	$args = array(
+		'format' => '?paged=%#%',
+    	'current' => max( 1, get_query_var('paged') ),
+	);
+	echo paginate_links($args);
+	?>
+
 <?php
-	  the_posts_pagination();
+	  
 }
 wp_reset_query();
 });
-
 
 // Теперь, где нужно вывести пагинацию используем
 // my_pagenavi();
