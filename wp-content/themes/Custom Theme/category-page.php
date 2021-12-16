@@ -20,24 +20,8 @@
 <div id="eksponat" class="container">
 <?php do_action('eksponats',$count=1);?>
 
-
-
 </div>
-<div id="qrcode"><?php echo get_permalink()?></div>
 
-
-<script type="text/javascript">
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 100,
-	height : 100
-});
-
-function makeCode () {		
-	var url = <?php echo get_template_directory_uri()?>;
-	qrcode.makeCode(url);
-}
-makeCode ();
-</script>
 
 
 </body>

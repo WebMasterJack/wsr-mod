@@ -106,11 +106,44 @@ add_action( 'eksponats', function($count){ //category-page.php экспонат�
 	);
 	echo paginate_links($args);
 	?>
+	<?php do_action('qrcode');
+	
+	
+	?>
+	
 
 <?php
 	  
 }
 wp_reset_query();
+});
+add_action('current_url',function(){
+global $wp;
+$home=get_home_url();
+$current_url=$home.'/'.$wp->request;
+echo $current_url;
+
+});
+add_action('qrcode',function(){
+	?>
+	<div id="qrcode" style="height:100px;" ></div>
+
+
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 100,
+	height : 100
+});
+
+function makeCode () {		
+	var scan = "<?php do_action('current_url');?>"
+	qrcode.makeCode(scan);
+}
+makeCode ();
+
+</script>
+
+	<?php
 });
 
 // Теперь, где нужно вывести пагинацию используем
